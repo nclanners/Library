@@ -198,6 +198,20 @@ public class Catalog implements Serializable {
 		return notCheckedOut.iterator();
 	}
 
+	public Iterator removableList() {
+		List removable = new LinkedList();
+
+		for (Iterator iterator = books.iterator(); iterator.hasNext();) {
+			Book book = (Book) iterator.next();
+			if (book.getBorrower() == null && (!book.hasHold())) {
+				removable.add(book);
+			}
+
+		}
+		// TODO Auto-generated method stub
+		return removable.iterator();
+	}
+
 	private Iterator getIterator() {
 		// TODO Auto-generated method stub
 		Iterator<Book> iterator = books.iterator();

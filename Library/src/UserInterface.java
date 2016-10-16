@@ -338,7 +338,8 @@ public class UserInterface {
 	public void removeBooks() {
 		int result;
 		do {
-			String bookID = getToken("Enter book id");
+			// String bookID = getToken("Enter book id");
+			String bookID = sequenceNotCheckedOutList();
 			result = library.removeBook(bookID);
 			switch (result) {
 			case Library.BOOK_NOT_FOUND:
@@ -612,6 +613,26 @@ public class UserInterface {
 		String sequenceNumber = getToken("Enter Sequence Number: ");
 
 		String bookID = Catalog.getBookId(Integer.parseInt(sequenceNumber), Catalog.instance().notCheckedOutList());
+
+		return bookID;
+
+	}
+
+	public String sequenceRemovableList() {
+		int i = 1;
+		// ***********************************************
+		// New code here:
+		Iterator books = Catalog.instance().removableList();
+		for (; books.hasNext();) {
+			Book localBook = ((Book) books.next());
+
+			System.out.println("   " + i++ + ".   " + localBook.toString());
+		}
+
+		// *************************************************
+		String sequenceNumber = getToken("Enter Sequence Number: ");
+
+		String bookID = Catalog.getBookId(Integer.parseInt(sequenceNumber), Catalog.instance().removableList());
 
 		return bookID;
 
