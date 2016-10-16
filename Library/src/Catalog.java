@@ -163,12 +163,12 @@ public class Catalog implements Serializable {
 		return books;
 	}
 
-	public Iterator serveHoldIterator() {
-		// return new Iterator memberList.iterator();
-
-		Iterator<Book> books = holdableList();
-		return books;
-	}
+	/*
+	 * public Iterator serveHoldIterator() { // return new Iterator
+	 * memberList.iterator();
+	 * 
+	 * Iterator<Book> books = holdableList(); return books; }
+	 */
 
 	public Iterator holdableList() {
 		List checkedOut = new LinkedList();
@@ -203,13 +203,27 @@ public class Catalog implements Serializable {
 
 		for (Iterator iterator = books.iterator(); iterator.hasNext();) {
 			Book book = (Book) iterator.next();
-			if (book.getBorrower() == null && (!book.hasHold())) {
+			if (book.getBorrower() == null && (!(book.hasHold()))) {
 				removable.add(book);
 			}
 
 		}
 		// TODO Auto-generated method stub
 		return removable.iterator();
+	}
+
+	public Iterator hasHoldList() {
+		List hasHold = new LinkedList();
+
+		for (Iterator iterator = books.iterator(); iterator.hasNext();) {
+			Book book = (Book) iterator.next();
+			if (book.getBorrower() != null && book.hasHold()) {
+				hasHold.add(book);
+			}
+
+		}
+		// TODO Auto-generated method stub
+		return hasHold.iterator();
 	}
 
 	private Iterator getIterator() {
