@@ -254,6 +254,7 @@ public class UserInterface {
 		do {
 			// String bookID = sequenceAllBooksList();
 			String bookID = sequenceNotCheckedOutList();
+
 			// String bookID = getToken("Enter book id");
 			result = library.issueBook(memberID, bookID);
 			if (result != null) {
@@ -600,21 +601,20 @@ public class UserInterface {
 		int i = 1;
 		// ***********************************************
 		// New code here:
-		Iterator books = Catalog.instance().serveIterator();
+		Iterator books = Catalog.instance().notCheckedOutList();
 		for (; books.hasNext();) {
-			// Book localBook = ((Book) books.next());
+			Book localBook = ((Book) books.next());
 
-			if (((Book) books.next()).getBorrower() == null) {
-
-				System.out.println("   " + i++ + ".   " + ((Book) books.next()).toString());
-			}
+			System.out.println("   " + i++ + ".   " + localBook.toString());
 		}
+
 		// *************************************************
 		String sequenceNumber = getToken("Enter Sequence Number: ");
 
-		String bookID = Catalog.getBookId(Integer.parseInt(sequenceNumber));
+		String bookID = Catalog.getBookId(Integer.parseInt(sequenceNumber), Catalog.instance().notCheckedOutList());
 
 		return bookID;
+
 	}
 
 	public String sequenceHasHoldList() {
